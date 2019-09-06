@@ -1,9 +1,9 @@
 #Jedis
 redis:
   jedis:
-    database: 1
+    database: 0
     host: 127.0.0.1
-    password: 123456
+    password: 545825
     pool:
       max-active: 200
       max-idle: 8
@@ -22,7 +22,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/springbootdemo?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
     username: root
-    password: 123456
+    password: 545825
     # HKCP
     hikari:
       auto-commit: true
@@ -39,7 +39,7 @@ spring:
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath:mybatis/*/*.xml
-  type-aliases-package: com.hanz.stuspringbootdemo
+  type-aliases-package: com.sph.stuspringbootdemo
 
 #日志自定义配置
 logging:
