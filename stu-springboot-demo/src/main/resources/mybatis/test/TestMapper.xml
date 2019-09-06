@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sph.stuspringbootdemo.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.sph.stuspringbootdemo.domain.User">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="sal" property="sal" jdbcType="DOUBLE"/>
+    </resultMap>
+    <resultMap id="SecondResultMap" type="com.sph.stuspringbootdemo.domain.Role">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="role_name" property="role_name" jdbcType="VARCHAR"/>
+        <result column="user_id" property="user_id" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, name,password, sal
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="getRoleByUserName" resultMap="SecondResultMap" parameterType="java.lang.String">
+        select *
+        from role
+        where user_id in (select id from user where name = #{username,jdbcType=VARCHAR} )
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.sph.stuspringbootdemo.domain.User">
+    insert into user (id, name,password, sal
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR}, #{sal,jdbcType=DOUBLE}
+      )
+  </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.sph.stuspringbootdemo.domain.User">
+    update user
+    set name = #{name,jdbcType=VARCHAR},
+      sal = #{sal,jdbcType=DOUBLE},
+      password = #{password,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="selectByName" resultType="com.sph.stuspringbootdemo.domain.User">
+        select
+        <include refid="Base_Column_List" />
+        from
+        user
+        where
+        name = #{name}
+    </select>
+</mapper>
